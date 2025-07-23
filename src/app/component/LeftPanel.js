@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { IoMdClose } from "react-icons/io";
 
-const LeftPanel = ({ setCoinsid }) => {
+const LeftPanel = ({ setCoinsid, handleShow }) => {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
   const [getimg, SetGetimg] = useState("");
@@ -33,9 +34,9 @@ const LeftPanel = ({ setCoinsid }) => {
   );
 
   return (
-    <div className="fixed">
-      <div>
-        <div className="flex flex-row p-2 items-center bg-[#2e303f] gap-4">
+    <div className="fixed h-[100vh]">
+      <div className="bg-[#2e303f] flex justify-between items-center">
+        <div className="flex flex-row p-2 items-center  gap-4">
           <img src={getimg?.image} alt={getimg.name} className="w-9 h-9 mb-1" />
           <div className="flex flex-col">
             <span className="text-[10px] text-gray-300">{getimg.name}</span>
@@ -43,6 +44,11 @@ const LeftPanel = ({ setCoinsid }) => {
               {getimg.symbol} / {currency}
             </span>
           </div>
+        </div>
+        <div className="mr-2 md:hidden block">
+          <button onClick={() => handleShow()}>
+            <IoMdClose className="text-2xl" />
+          </button>
         </div>
       </div>
 
@@ -74,7 +80,7 @@ const LeftPanel = ({ setCoinsid }) => {
         </div>
       </div>
 
-      <div className="h-[532px] overflow-y-auto scrollbar-hide">
+      <div className="h-[100vh] overflow-y-auto scrollbar-hide">
         {filterCoin.map((res) => (
           <div
             className="flex justify-between hover:bg-[#dbd5d5] border"

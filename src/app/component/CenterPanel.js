@@ -15,6 +15,7 @@ import {
 } from "chartjs-chart-financial";
 import { Chart } from "react-chartjs-2";
 import "chartjs-adapter-date-fns";
+import { FaBars } from "react-icons/fa";
 
 // Register Chart.js components
 ChartJS.register(
@@ -27,7 +28,7 @@ ChartJS.register(
   CandlestickElement
 );
 
-const CenterPanel = ({ coinid }) => {
+const CenterPanel = ({ coinid, handleShow }) => {
   const chartDays = [
     // { label: "1h", value: 1 / 24 },
     { label: "24H", value: 1 },
@@ -154,8 +155,13 @@ const CenterPanel = ({ coinid }) => {
 
   return (
     <div className="">
-      <div className="flex justify-between gap-0 bg-[#161929] rounded-lg p-[13px]">
+      <div className="flex justify-between flex-wrap gap-0 bg-[#161929] rounded-lg p-[13px]">
         <div className="flex gap-5">
+          <div className="mr-2 md:hidden block">
+            <button onClick={() => handleShow()}>
+              <FaBars className="text-2xl" />
+            </button>
+          </div>
           <div>
             <p className="text-[10px] text-gray-500">24h change</p>
             <p
@@ -195,7 +201,9 @@ const CenterPanel = ({ coinid }) => {
           ))}
         </div>
       </div>
-      <Chart type="candlestick" data={data} options={options} />
+      <div className="">
+        <Chart type="candlestick" data={data} options={options} />
+      </div>
     </div>
   );
 };
