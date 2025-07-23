@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
-const LeftPanel = ({ setCoinsid, handleShow }) => {
+const LeftPanel = ({ setCoinsid, handleShow, setSymble }) => {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
   const [getimg, SetGetimg] = useState("");
@@ -74,19 +74,21 @@ const LeftPanel = ({ setCoinsid, handleShow }) => {
             label="Search For a Crypto Currency.."
             variant="outlined"
             placeholder="Search the coin  and Sumbol"
-            className="w-full p-3 rounded-md "
+            className="w-full p-3 rounded-md border-2 border-gray-800 "
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
 
       <div className="h-[100vh] overflow-y-auto scrollbar-hide">
-        {filterCoin.map((res) => (
+        {filterCoin.map((res, id) => (
           <div
-            className="flex justify-between hover:bg-[#dbd5d5] border"
+            key={id}
+            className="flex justify-between hover:bg-gray-800 border-b-1 border-gray-800"
             onClick={() => {
               setCoinsid(res.id);
               SetGetimg(res);
+              setSymble(res?.symbol);
             }}
           >
             <div className=" items-center gap-1 p-1">
@@ -100,10 +102,10 @@ const LeftPanel = ({ setCoinsid, handleShow }) => {
             </div>
             <div className="p-1">
               <p
-                className={`p-2 font-medium ${
+                className={`p-2 rounded-md font-medium ${
                   res.price_change_percentage_24h > 0
-                    ? "bg-green-300"
-                    : "bg-red-300"
+                    ? "bg-green-900/50 text-green-400"
+                    : "bg-rose-900/50 text-rose-400"
                 }`}
               >
                 {res.price_change_percentage_24h > 0 && "+"}

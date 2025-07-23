@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import LeftPanel from "./LeftPanel";
 import CenterPanel from "./CenterPanel";
 import RightPanel from "./RightPanel";
+import dynamic from "next/dynamic";
 
 const Panel = () => {
   const [coinsid, setCoinsid] = useState("bitcoin");
+  const [symble, setSymble] = useState("btc");
   const [show, setShow] = useState(true);
   console.log(coinsid);
 
@@ -34,7 +36,7 @@ const Panel = () => {
         )}
 
         <div className=" col-span-1 hidden lg:block">
-          <LeftPanel setCoinsid={setCoinsid} />
+          <LeftPanel setCoinsid={setCoinsid} setSymble={setSymble} />
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
           <CenterPanel coinid={coinsid} handleShow={handleShowhide} />
@@ -42,11 +44,11 @@ const Panel = () => {
 
         {/* Right Sidebar */}
         <div className="col-span-12 md:col-span-6 lg:col-span-1">
-          <RightPanel coinid={coinsid} />
+          <RightPanel symble={symble} />
         </div>
       </div>
     </div>
   );
 };
 
-export default Panel;
+export default dynamic(() => Promise.resolve(Panel), { ssr: false });

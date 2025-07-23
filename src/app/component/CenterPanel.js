@@ -79,10 +79,8 @@ const CenterPanel = ({ coinid, handleShow }) => {
   };
 
   useEffect(() => {
-    if (coinid) {
-      fetchHistoricData();
-      HandleCoinData();
-    }
+    fetchHistoricData();
+    HandleCoinData();
   }, [coinid, days]);
 
   const generateOHLC = (prices) => {
